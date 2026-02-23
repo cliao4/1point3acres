@@ -1,4 +1,52 @@
 # 1point3acres
+## What I have changed:
+
+Posted on 02/22/2026
+
+Mainly update the **Dockerfile** to use the latest version of Python and update the dependencies in requirements.txt. 
+
+Also, I have added some comments to the code for better readability.
+
+### How To Use with Docker:
+1. Build the Docker image:
+   ```bash
+   docker build -t 1point3acres:latest .
+   ```
+2. Copy the `1p3acres.service` and `1p3acres.timer` files to the systemd directory:
+   ```bash
+   sudo cp 1p3acres.service /etc/systemd/system/
+   sudo cp 1p3acres.timer /etc/systemd/system/
+   ```
+3. Reload the systemd daemon to recognize the new service and timer:
+   ```bash
+   sudo systemctl daemon-reload
+   ```
+4. Enable and start the timer:
+   ```bash
+   sudo systemctl enable --now 1p3acres.timer
+   ```  
+5. Check the status of the timer and service:
+   ```bash
+   systemctl list-timers --all | grep 1p3acres
+   systemctl status 1p3acres.timer
+   ```
+6. Check the logs to see if the service is running correctly:
+   ```bash
+   journalctl -u 1p3acres.service -f
+   ```
+   
+7. To stop the timer and service:
+   ```bash
+   sudo systemctl stop 1p3acres.timer
+   sudo systemctl stop 1p3acres.service
+   ```
+8. Check your log about automatic sign-in and quiz results in the log output.
+    ```
+    cat /YourDirectory/1point3acres/run.log
+    ```
+   
+
+===============================================
 
 [一亩三分地](https://www.1point3acres.com/bbs/) 自动签到、答题
 
