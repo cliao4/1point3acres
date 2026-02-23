@@ -7,6 +7,8 @@ Mainly update the **Dockerfile** to use the latest version of Python and update 
 
 Also, I have added some comments to the code for better readability.
 
+NEED TO ADD THE COOKIES/API_KEYS IN THE `configure` directory, the file name should be cookie.json
+
 ### How To Use with Docker:
 1. Build the Docker image:
    ```bash
