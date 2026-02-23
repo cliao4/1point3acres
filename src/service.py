@@ -4,7 +4,10 @@ import hashlib
 from raw_requests import *
 import sys
 from twocaptcha import TwoCaptcha
+from pathlib import Path
 
+BASE = Path(__file__).resolve().parent
+CONFIG_DIR = BASE.parent / "configure"
 
 # 签到流程
 # 查看是否已签到
@@ -82,8 +85,8 @@ def do_all_password(solver, username: str, password: str):
 def main(from_file: bool = False):
 	users = []
 	api_key = ""
-	cookie_file = "../configure/cookie.json"
-	password_file = "../configure/data.json"
+	cookie_file = CONFIG_DIR / "cookie.json"
+	password_file = CONFIG_DIR / "data.json"
 	if (len(sys.argv) > 1):
 		cookie_file = sys.argv[1]
 	if os.path.exists(cookie_file):

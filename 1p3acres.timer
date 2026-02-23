@@ -1,0 +1,14 @@
+[Unit]
+Description=Daily timer for 1point3acres check-in
+
+[Timer]
+# Run one-time at 19:00 everyday
+OnCalendar=*-*-* 19:00:00
+# 机器关机错过了，也会在下次开机补跑
+Persistent=true
+# 给一点随机延迟（避免所有机器同一秒打目标站/服务）
+RandomizedDelaySec=120
+Unit=1p3acres.service
+
+[Install]
+WantedBy=timers.target

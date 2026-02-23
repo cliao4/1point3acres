@@ -1,0 +1,27 @@
+[Unit]
+Description=Run 1point3acres daily check-in in Docker
+Wants=docker.service
+After=docker.service network-online.target
+Requires=docker.service
+
+[Service]
+Type=oneshot
+User=chenfei
+WorkingDirectory=/home/[YourUsername]/1point3acres
+
+# 可选：给 systemd 自己的日志也加上标识（容器仍然写 run.log）
+Environment=TZ=America/Chicago
+
+# 确保日志文件存在（避免首次运行挂载类型怪异）
+ExecStartPre=/usr/bin/touch /home/[YourUsername]/1point3acres/run.log
+
+# 真正执行：跑一次就退出（--rm），挂载 configure & run.log
+ExecStart=/usr/bin/docker run --rm \
+  -v /home/[YourUsername]/1point3acres/configure:/app/configure:ro \
+  -v /home/[YourUsername]/1point3acres/run.log:/app/run.log \
+  -e TZ=America/Chicago \
+  1p3acres_autocheck:latest
+
+# 可选：失败时重试（比如网络抖一下）
+Restart=no
+
